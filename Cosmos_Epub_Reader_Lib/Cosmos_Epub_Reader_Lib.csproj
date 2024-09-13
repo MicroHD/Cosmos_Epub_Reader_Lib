@@ -11,14 +11,10 @@
     <Authors>MicroHD</Authors>
     <Description>A library for reading and writing EPUB files, providing robust functionality to parse and generate EPUB content.</Description>
 
-    <RepositoryUrl>https://github.com/username/repository-name</RepositoryUrl>
-    <!-- Replace with your actual GitHub repo URL -->
+    <RepositoryUrl>https://github.com/MicroHD/Cosmos_Epub_Reader_Lib</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <!-- Type of version control, usually 'git' for GitHub repositories -->
-    <PackageProjectUrl>https://github.com/username/repository-name</PackageProjectUrl>
-    <!-- URL to the project page -->
-    <PackageIconUrl>https://raw.githubusercontent.com/username/repository-name/main/icon.png</PackageIconUrl>
-    <!-- Optional: URL to the package icon -->
+    <PackageProjectUrl>https://github.com/MicroHD/Cosmos_Epub_Reader_Lib</PackageProjectUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/MicroHD/Cosmos_Epub_Reader_Lib/main/icon.png</PackageIconUrl>
   </PropertyGroup>
 
   <ItemGroup>
