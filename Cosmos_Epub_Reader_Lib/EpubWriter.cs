@@ -5,8 +5,17 @@ using System.Xml;
 
 namespace Cosmos_Epub_Reader_Lib
 {
+    /// <summary>
+    /// Provides functionality to write and save EPUB files, including metadata, chapters, and necessary EPUB structure files.
+    /// </summary>
     public class EpubWriter
     {
+        /// <summary>
+        /// Saves an <see cref="EpubFile"/> to the specified output path in EPUB format.
+        /// </summary>
+        /// <param name="epub">The <see cref="EpubFile"/> object containing the content to be saved.</param>
+        /// <param name="outputPath">The path where the EPUB file will be saved.</param>
+        /// <exception cref="Exception">Thrown if an error occurs during the save process.</exception>
         public void SaveEpub(EpubFile epub, string outputPath)
         {
             string tempDir = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
@@ -40,10 +49,14 @@ namespace Cosmos_Epub_Reader_Lib
             }
         }
 
+        /// <summary>
+        /// Writes the OPF file with metadata, manifest, and spine details for the EPUB.
+        /// </summary>
+        /// <param name="epub">The <see cref="EpubFile"/> object containing the content to be saved.</param>
+        /// <param name="directoryPath">The directory path where the OPF file will be saved.</param>
         private void WriteOpfFile(EpubFile epub, string directoryPath)
         {
             // Create and write the content.opf XML file using epub data
-            // This includes writing metadata, manifest, and spine
             var opfPath = Path.Combine(directoryPath, "content.opf");
             using (var writer = XmlWriter.Create(opfPath, new XmlWriterSettings { Indent = true }))
             {
@@ -91,6 +104,11 @@ namespace Cosmos_Epub_Reader_Lib
             }
         }
 
+        /// <summary>
+        /// Writes the chapter files to the OEBPS directory within the EPUB structure.
+        /// </summary>
+        /// <param name="epub">The <see cref="EpubFile"/> object containing the chapters to be saved.</param>
+        /// <param name="oebpsDir">The directory where the chapter files will be saved.</param>
         private void WriteChapters(EpubFile epub, string oebpsDir)
         {
             foreach (var chapter in epub.Chapters)
@@ -104,7 +122,10 @@ namespace Cosmos_Epub_Reader_Lib
             }
         }
 
-
+        /// <summary>
+        /// Writes the container.xml file inside the META-INF directory, defining the path to the OPF file.
+        /// </summary>
+        /// <param name="metaInfDir">The path to the META-INF directory where the container.xml will be saved.</param>
         private void WriteContainerXml(string metaInfDir)
         {
             string containerPath = Path.Combine(metaInfDir, "container.xml");

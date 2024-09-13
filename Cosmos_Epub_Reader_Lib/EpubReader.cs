@@ -1,11 +1,23 @@
-﻿using System.IO;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.IO.Compression;
 using System.Xml;
 
 namespace Cosmos_Epub_Reader_Lib
 {
+    /// <summary>
+    /// Provides functionality to read and parse EPUB files, extracting metadata and chapters.
+    /// </summary>
     public class EpubReader
     {
+        /// <summary>
+        /// Opens and reads an EPUB file, extracting its metadata and chapters.
+        /// </summary>
+        /// <param name="filePath">The path to the EPUB file to be read.</param>
+        /// <returns>An <see cref="EpubFile"/> object containing the parsed content of the EPUB file.</returns>
+        /// <exception cref="FileNotFoundException">Thrown if the specified EPUB file does not exist.</exception>
+        /// <exception cref="Exception">Thrown if the EPUB file structure is invalid or if parsing fails.</exception>
         public EpubFile OpenEpub(string filePath)
         {
             if (!File.Exists(filePath))
@@ -25,10 +37,15 @@ namespace Cosmos_Epub_Reader_Lib
             return epubFile;
         }
 
+        /// <summary>
+        /// Finds the path to the content.opf file inside the extracted EPUB directory.
+        /// </summary>
+        /// <param name="tempDir">The temporary directory where the EPUB file is extracted.</param>
+        /// <returns>The path to the content.opf file.</returns>
+        /// <exception cref="Exception">Thrown if the EPUB file structure is invalid or if the OPF file is missing.</exception>
         private string FindContentOpfPath(string tempDir)
         {
             // Look for the OPF file inside the extracted EPUB directory
-            // Typically located in the EPUB folder or META-INF/container.xml file points to it
             string containerPath = Path.Combine(tempDir, "META-INF", "container.xml");
             if (!File.Exists(containerPath))
                 throw new Exception("Invalid EPUB file structure.");
@@ -46,6 +63,12 @@ namespace Cosmos_Epub_Reader_Lib
             return Path.Combine(tempDir, fullPathAttr.Value);
         }
 
+        /// <summary>
+        /// Parses the OPF file to extract metadata and chapters from the EPUB file.
+        /// </summary>
+        /// <param name="opfFilePath">The path to the OPF file.</param>
+        /// <param name="tempDir">The temporary directory where the EPUB content is extracted.</param>
+        /// <returns>An <see cref="EpubFile"/> object containing the metadata and chapters of the EPUB.</returns>
         private EpubFile ParseOpfFile(string opfFilePath, string tempDir)
         {
             // Read and parse the content.opf file to build the EpubFile structure

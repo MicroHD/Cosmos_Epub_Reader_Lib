@@ -7,25 +7,47 @@ using System.Xml;
 
 namespace Cosmos_Epub_Reader_Lib
 {
+    /// <summary>
+    /// Represents an EPUB file containing metadata and chapters.
+    /// </summary>
     public class EpubFile
     {
+        /// <summary>
+        /// Gets or sets the metadata of the EPUB file.
+        /// </summary>
         public EpubMetadata Metadata { get; set; } = new EpubMetadata();
+
+        /// <summary>
+        /// Gets or sets the list of chapters in the EPUB file.
+        /// </summary>
         public List<EpubChapter> Chapters { get; set; } = new List<EpubChapter>();
 
-        // Method to add a new chapter to the list
+        /// <summary>
+        /// Adds a new chapter to the list of chapters in the EPUB file.
+        /// </summary>
+        /// <param name="chapter">The chapter to be added.</param>
+        /// <exception cref="ArgumentNullException">Thrown when the chapter is null.</exception>
         public void AddChapter(EpubChapter chapter)
         {
             if (chapter == null) throw new ArgumentNullException(nameof(chapter));
             Chapters.Add(chapter);
         }
 
-        // Method to find a chapter by its title
+        /// <summary>
+        /// Finds a chapter by its title.
+        /// </summary>
+        /// <param name="title">The title of the chapter to find.</param>
+        /// <returns>The found chapter, or null if no chapter with the specified title is found.</returns>
         public EpubChapter? FindChapterByTitle(string title)
         {
             return Chapters.FirstOrDefault(c => c.Title.Equals(title, StringComparison.OrdinalIgnoreCase));
         }
 
-        // Method to remove a chapter by its title
+        /// <summary>
+        /// Removes a chapter from the EPUB file by its title.
+        /// </summary>
+        /// <param name="title">The title of the chapter to remove.</param>
+        /// <returns>True if the chapter was found and removed; otherwise, false.</returns>
         public bool RemoveChapterByTitle(string title)
         {
             var chapter = FindChapterByTitle(title);
@@ -37,7 +59,11 @@ namespace Cosmos_Epub_Reader_Lib
             return false;
         }
 
-        // Validation method to ensure Metadata is properly populated
+        /// <summary>
+        /// Validates the metadata of the EPUB file.
+        /// </summary>
+        /// <param name="validationMessage">An output message describing the validation result.</param>
+        /// <returns>True if the metadata is valid; otherwise, false.</returns>
         public bool ValidateMetadata(out string validationMessage)
         {
             var errors = new List<string>();
@@ -58,7 +84,13 @@ namespace Cosmos_Epub_Reader_Lib
             return true;
         }
 
-        // Load EPUB content from a file using System.IO.Compression and XML parsing
+        /// <summary>
+        /// Loads an EPUB file from the specified file path.
+        /// </summary>
+        /// <param name="filePath">The path to the EPUB file.</param>
+        /// <returns>An <see cref="EpubFile"/> object containing the loaded content.</returns>
+        /// <exception cref="FileNotFoundException">Thrown if the specified file does not exist.</exception>
+        /// <exception cref="Exception">Thrown if the EPUB file cannot be loaded due to an invalid structure.</exception>
         public static EpubFile LoadFromFile(string filePath)
         {
             if (!File.Exists(filePath))
@@ -104,7 +136,11 @@ namespace Cosmos_Epub_Reader_Lib
             return epubFile;
         }
 
-        // Parses the OPF file to extract metadata and chapter details
+        /// <summary>
+        /// Parses the OPF file to extract metadata and chapter details.
+        /// </summary>
+        /// <param name="opfFilePath">The path to the OPF file.</param>
+        /// <param name="tempDir">The temporary directory where the EPUB content is extracted.</param>
         private void ParseOpfFile(string opfFilePath, string tempDir)
         {
             XmlDocument opfDoc = new XmlDocument();
@@ -141,7 +177,6 @@ namespace Cosmos_Epub_Reader_Lib
                 }
             }
 
-
             // Build the chapters based on spine references
             foreach (XmlNode item in spineNodes)
             {
@@ -172,7 +207,12 @@ namespace Cosmos_Epub_Reader_Lib
             }
         }
 
-        // Save EPUB content to a file using System.IO.Compression
+        /// <summary>
+        /// Saves the EPUB content to the specified file path.
+        /// </summary>
+        /// <param name="filePath">The path where the EPUB file will be saved.</param>
+        /// <exception cref="InvalidOperationException">Thrown if the EPUB file validation fails.</exception>
+        /// <exception cref="Exception">Thrown if an error occurs during the save process.</exception>
         public void SaveToFile(string filePath)
         {
             // Perform basic validation before saving
@@ -205,7 +245,6 @@ namespace Cosmos_Epub_Reader_Lib
                     File.WriteAllText(chapterPath, chapter.Content);
                 }
 
-
                 // Create the EPUB file as a ZIP archive with .epub extension
                 ZipFile.CreateFromDirectory(tempDir, filePath);
             }
@@ -221,7 +260,10 @@ namespace Cosmos_Epub_Reader_Lib
             }
         }
 
-        // Creates the OPF file with metadata and spine information
+        /// <summary>
+        /// Creates the OPF file with metadata and spine information.
+        /// </summary>
+        /// <param name="opfFilePath">The path where the OPF file will be created.</param>
         private void CreateOpfFile(string opfFilePath)
         {
             using (var writer = XmlWriter.Create(opfFilePath, new XmlWriterSettings { Indent = true }))
@@ -264,7 +306,10 @@ namespace Cosmos_Epub_Reader_Lib
             }
         }
 
-        // Creates the container.xml file inside META-INF
+        /// <summary>
+        /// Creates the container.xml file inside the META-INF directory.
+        /// </summary>
+        /// <param name="metaInfDir">The path to the META-INF directory.</param>
         private void CreateContainerXml(string metaInfDir)
         {
             string containerPath = Path.Combine(metaInfDir, "container.xml");
