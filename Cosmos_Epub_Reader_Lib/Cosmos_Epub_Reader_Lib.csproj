@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+
+    <PackageId>Cosmos.Epub.Reader.Lib</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>MicroHD</Authors>
+    <Description>A library for reading and writing EPUB files, providing robust functionality to parse and generate EPUB content.</Description>
+
+    <RepositoryUrl>https://github.com/username/repository-name</RepositoryUrl>
+    <!-- Replace with your actual GitHub repo URL -->
+    <RepositoryType>git</RepositoryType>
+    <!-- Type of version control, usually 'git' for GitHub repositories -->
+    <PackageProjectUrl>https://github.com/username/repository-name</PackageProjectUrl>
+    <!-- URL to the project page -->
+    <PackageIconUrl>https://raw.githubusercontent.com/username/repository-name/main/icon.png</PackageIconUrl>
+    <!-- Optional: URL to the package icon -->
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="xunit" Version="2.4.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.0" />
+  </ItemGroup>
+
+</Project>

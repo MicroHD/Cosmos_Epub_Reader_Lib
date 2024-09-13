@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cosmos_Epub_Reader_Lib", "Cosmos_Epub_Reader_Lib\Cosmos_Epub_Reader_Lib.csproj", "{39C8549D-E2AE-49CF-B504-E7C45CC2CA5A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{39C8549D-E2AE-49CF-B504-E7C45CC2CA5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39C8549D-E2AE-49CF-B504-E7C45CC2CA5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39C8549D-E2AE-49CF-B504-E7C45CC2CA5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39C8549D-E2AE-49CF-B504-E7C45CC2CA5A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6ADE6EFE-BA41-4780-A3C2-628314B95F10}
+	EndGlobalSection
+EndGlobal
